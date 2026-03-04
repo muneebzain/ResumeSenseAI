@@ -12,8 +12,7 @@ struct PDFPicker: UIViewControllerRepresentable {
     let onPick: (Data, String) -> Void
 
     func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-        let types: [UTType] = [.pdf]
-        let picker = UIDocumentPickerViewController(forOpeningContentTypes: types, asCopy: true)
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.pdf], asCopy: true)
         picker.allowsMultipleSelection = false
         picker.delegate = context.coordinator
         return picker
@@ -21,7 +20,9 @@ struct PDFPicker: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
 
-    func makeCoordinator() -> Coordinator { Coordinator(onPick: onPick) }
+    func makeCoordinator() -> Coordinator {
+        Coordinator(onPick: onPick)
+    }
 
     final class Coordinator: NSObject, UIDocumentPickerDelegate {
         let onPick: (Data, String) -> Void
@@ -36,6 +37,7 @@ struct PDFPicker: UIViewControllerRepresentable {
                 let data = try Data(contentsOf: url)
                 onPick(data, url.lastPathComponent)
             } catch {
+                // Ignore for MVP; surface later if needed.
             }
         }
     }

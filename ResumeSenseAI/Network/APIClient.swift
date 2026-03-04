@@ -12,15 +12,17 @@ enum APIError: LocalizedError {
     case invalidResponse
     case http(Int, String)
     case decoding(String)
-    case unknown(String)
 
     var errorDescription: String? {
         switch self {
-        case .invalidURL: return "Invalid server URL."
-        case .invalidResponse: return "Invalid server response."
-        case .http(let code, let msg): return "Server error (\(code)): \(msg)"
-        case .decoding(let msg): return "Failed to decode response: \(msg)"
-        case .unknown(let msg): return msg
+        case .invalidURL:
+            return "Invalid server URL."
+        case .invalidResponse:
+            return "Invalid server response."
+        case .http(let code, let msg):
+            return "Server error (\(code)): \(msg)"
+        case .decoding(let msg):
+            return "Failed to decode response: \(msg)"
         }
     }
 }
@@ -28,9 +30,9 @@ enum APIError: LocalizedError {
 final class APIClient {
     static let shared = APIClient()
 
-    // Change this to your Mac LAN IP
-    // Example: http://192.168.1.20:8000
-    var baseURL = "http://127.0.0.1:8000"
+    /// IMPORTANT:
+    /// - If you run backend on your Mac and test on iPhone, use Mac LAN IP, e.g. http://192.168.1.20:8000
+    var baseURL: String = "http://127.0.0.1:8000"
 
     private init() {}
 
@@ -61,7 +63,8 @@ final class APIClient {
         jobDescription: String,
         responseType: T.Type
     ) async throws -> T {
-        guard let url = URL(string: baseURL + endpoint) else { throw APIError.invalidURL }
+        let cleanedBase = baseURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let url = URL(string: cleanedBase + endpoint) else { throw APIError.invalidURL }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -71,13 +74,13 @@ final class APIClient {
 
         var body = Data()
 
-        // job_description field
+        // job_description
         body.appendString("--\(boundary)\r\n")
         body.appendString("Content-Disposition: form-data; name=\"job_description\"\r\n\r\n")
         body.appendString(jobDescription)
         body.appendString("\r\n")
 
-        // resume file field
+        // resume file
         body.appendString("--\(boundary)\r\n")
         body.appendString("Content-Disposition: form-data; name=\"resume\"; filename=\"\(filename)\"\r\n")
         body.appendString("Content-Type: application/pdf\r\n\r\n")
@@ -85,7 +88,6 @@ final class APIClient {
         body.appendString("\r\n")
 
         body.appendString("--\(boundary)--\r\n")
-
         request.httpBody = body
 
         let (data, response) = try await URLSession.shared.data(for: request)
@@ -108,8 +110,6 @@ final class APIClient {
 
 private extension Data {
     mutating func appendString(_ string: String) {
-        if let d = string.data(using: .utf8) {
-            append(d)
-        }
+        if let data = string.data(using: .utf8) { append(data) }
     }
 }

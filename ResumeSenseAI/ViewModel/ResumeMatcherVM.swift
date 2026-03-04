@@ -5,8 +5,9 @@
 //  Created by Muneeb Zain on 04/03/2026.
 //
 
-import Foundation
 import Combine
+import Foundation
+import UIKit
 
 @MainActor
 final class ResumeMatcherVM: ObservableObject {
@@ -21,9 +22,15 @@ final class ResumeMatcherVM: ObservableObject {
     @Published var rewriteResult: RewriteResponse?
 
     func setPDF(data: Data, filename: String) {
-        self.pdfData = data
-        self.pdfFilename = filename
-        self.errorText = nil
+        pdfData = data
+        pdfFilename = filename
+        errorText = nil
+    }
+
+    func resetResults() {
+        analyzeResult = nil
+        rewriteResult = nil
+        errorText = nil
     }
 
     func runAnalyze() async {
@@ -47,6 +54,7 @@ final class ResumeMatcherVM: ObservableObject {
                 jobDescription: jobDescription
             )
             analyzeResult = res
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
         } catch {
             errorText = error.localizedDescription
         }
@@ -74,6 +82,7 @@ final class ResumeMatcherVM: ObservableObject {
                 jobDescription: jobDescription
             )
             rewriteResult = res
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
         } catch {
             errorText = error.localizedDescription
         }

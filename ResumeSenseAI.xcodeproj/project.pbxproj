@@ -14,7 +14,8 @@
 		BFD59A5E2F586B3400F53D47 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD59A5D2F586B3400F53D47 /* APIClient.swift */; };
 		BFD59A612F586B6700F53D47 /* PDFPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD59A602F586B6700F53D47 /* PDFPicker.swift */; };
 		BFD59A632F586B9000F53D47 /* ResumeMatcherVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD59A622F586B9000F53D47 /* ResumeMatcherVM.swift */; };
-		BFD59A652F586BC400F53D47 /* ResumeSenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD59A642F586BC400F53D47 /* ResumeSenseView.swift */; };
+		BFD59A692F58712900F53D47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD59A682F58712900F53D47 /* ContentView.swift */; };
+		BFD59A6B2F5872B300F53D47 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD59A6A2F5872B300F53D47 /* Components.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +27,8 @@
 		BFD59A5D2F586B3400F53D47 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		BFD59A602F586B6700F53D47 /* PDFPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPicker.swift; sourceTree = "<group>"; };
 		BFD59A622F586B9000F53D47 /* ResumeMatcherVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeMatcherVM.swift; sourceTree = "<group>"; };
-		BFD59A642F586BC400F53D47 /* ResumeSenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeSenseView.swift; sourceTree = "<group>"; };
+		BFD59A682F58712900F53D47 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BFD59A6A2F5872B300F53D47 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +61,10 @@
 		BFD59A4F2F586A5B00F53D47 /* ResumeSenseAI */ = {
 			isa = PBXGroup;
 			children = (
+				BFD59A542F586A7300F53D47 /* App */,
 				BFD59A5F2F586B5600F53D47 /* UI */,
 				BFD59A5A2F586B0100F53D47 /* Network */,
 				BFD59A572F586A9A00F53D47 /* Model */,
-				BFD59A542F586A7300F53D47 /* App */,
 				BFD59A532F586A6A00F53D47 /* Assets */,
 				BFD59A562F586A9200F53D47 /* ViewModel */,
 				BFD59A552F586A8C00F53D47 /* View */,
@@ -89,7 +91,7 @@
 		BFD59A552F586A8C00F53D47 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BFD59A642F586BC400F53D47 /* ResumeSenseView.swift */,
+				BFD59A682F58712900F53D47 /* ContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				BFD59A602F586B6700F53D47 /* PDFPicker.swift */,
+				BFD59A6A2F5872B300F53D47 /* Components.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -200,8 +203,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFD59A5C2F586B1F00F53D47 /* RewriteResponse.swift in Sources */,
+				BFD59A6B2F5872B300F53D47 /* Components.swift in Sources */,
 				BFD59A522F586A5B00F53D47 /* ResumeSenseAIApp.swift in Sources */,
-				BFD59A652F586BC400F53D47 /* ResumeSenseView.swift in Sources */,
+				BFD59A692F58712900F53D47 /* ContentView.swift in Sources */,
 				BFD59A612F586B6700F53D47 /* PDFPicker.swift in Sources */,
 				BFD59A592F586AE300F53D47 /* AnalyzeResponse.swift in Sources */,
 				BFD59A632F586B9000F53D47 /* ResumeMatcherVM.swift in Sources */,
