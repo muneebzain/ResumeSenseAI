@@ -11,7 +11,7 @@ import SwiftUI
 struct ResumeSenseAIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ResumeSenseView()
         }
     }
 }
