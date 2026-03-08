@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF270BD02F5DB34B004EC04B /* RewriteResultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF270BCF2F5DB34B004EC04B /* RewriteResultCard.swift */; };
+		BF270BD22F5DB387004EC04B /* AnalyzeResultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF270BD12F5DB387004EC04B /* AnalyzeResultCard.swift */; };
 		BFD59A502F586A5B00F53D47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFD59A4C2F586A5B00F53D47 /* Assets.xcassets */; };
 		BFD59A522F586A5B00F53D47 /* ResumeSenseAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD59A4E2F586A5B00F53D47 /* ResumeSenseAIApp.swift */; };
 		BFD59A592F586AE300F53D47 /* AnalyzeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD59A582F586AE300F53D47 /* AnalyzeResponse.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF270BCF2F5DB34B004EC04B /* RewriteResultCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewriteResultCard.swift; sourceTree = "<group>"; };
+		BF270BD12F5DB387004EC04B /* AnalyzeResultCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeResultCard.swift; sourceTree = "<group>"; };
 		BFD59A3E2F586A5500F53D47 /* ResumeSenseAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResumeSenseAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFD59A4C2F586A5B00F53D47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BFD59A4E2F586A5B00F53D47 /* ResumeSenseAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeSenseAIApp.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				BFD59A682F58712900F53D47 /* ContentView.swift */,
+				BF270BCF2F5DB34B004EC04B /* RewriteResultCard.swift */,
+				BF270BD12F5DB387004EC04B /* AnalyzeResultCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -209,7 +215,9 @@
 				BFD59A612F586B6700F53D47 /* PDFPicker.swift in Sources */,
 				BFD59A592F586AE300F53D47 /* AnalyzeResponse.swift in Sources */,
 				BFD59A632F586B9000F53D47 /* ResumeMatcherVM.swift in Sources */,
+				BF270BD02F5DB34B004EC04B /* RewriteResultCard.swift in Sources */,
 				BFD59A5E2F586B3400F53D47 /* APIClient.swift in Sources */,
+				BF270BD22F5DB387004EC04B /* AnalyzeResultCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

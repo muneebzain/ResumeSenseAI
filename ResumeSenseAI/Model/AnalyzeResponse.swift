@@ -22,6 +22,9 @@ struct AnalyzeResponse: Decodable {
     let resume_sections_found: [String]?
 
     let semantic_matches: [SemanticMatch]?
+    
+    let extracted_resume_text: String?
+
 }
 
 struct SemanticMatch: Decodable, Identifiable {

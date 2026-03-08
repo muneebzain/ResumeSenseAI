@@ -14,25 +14,26 @@ final class ResumeMatcherVM: ObservableObject {
     @Published var pdfData: Data?
     @Published var pdfFilename: String = "resume.pdf"
     @Published var jobDescription: String = ""
-
+    
     @Published var isLoading: Bool = false
     @Published var errorText: String?
-
+    
     @Published var analyzeResult: AnalyzeResponse?
     @Published var rewriteResult: RewriteResponse?
-
+    @Published var extractedResumeText: String?
+    
     func setPDF(data: Data, filename: String) {
         pdfData = data
         pdfFilename = filename
         errorText = nil
     }
-
+    
     func resetResults() {
         analyzeResult = nil
         rewriteResult = nil
         errorText = nil
     }
-
+    
     func runAnalyze() async {
         guard let pdfData else {
             errorText = "Please select a PDF resume first."
@@ -42,11 +43,11 @@ final class ResumeMatcherVM: ObservableObject {
             errorText = "Please paste a job description."
             return
         }
-
+        
         isLoading = true
         errorText = nil
         rewriteResult = nil
-
+        
         do {
             let res = try await APIClient.shared.analyze(
                 pdfData: pdfData,
@@ -54,39 +55,47 @@ final class ResumeMatcherVM: ObservableObject {
                 jobDescription: jobDescription
             )
             analyzeResult = res
+            extractedResumeText = res.extracted_resume_text
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
         } catch {
             errorText = error.localizedDescription
+            print(error)
         }
-
+        
         isLoading = false
     }
-
+    
     func runRewrite() async {
-        guard let pdfData else {
-            errorText = "Please select a PDF resume first."
+        
+        guard let resumeText = extractedResumeText else {
+            errorText = "Run analysis first."
             return
         }
+        
         if jobDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             errorText = "Please paste a job description."
             return
         }
-
+        
         isLoading = true
         errorText = nil
-
+        
         do {
+            
+            let missing = analyzeResult?.missing_keywords ?? []
+            
             let res = try await APIClient.shared.rewrite(
-                pdfData: pdfData,
-                filename: pdfFilename,
-                jobDescription: jobDescription
+                resumeText: resumeText,
+                jobDescription: jobDescription,
+                missingKeywords: missing
             )
+            
             rewriteResult = res
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            
         } catch {
             errorText = error.localizedDescription
         }
-
+        
         isLoading = false
     }
 }
