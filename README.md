@@ -1,211 +1,160 @@
-ResumeSenseAI Backend
+ResumeSenseAI – iOS App
 
-ResumeSenseAI Backend is a FastAPI-based service that analyzes how well a resume matches a job description and generates AI-powered resume improvement suggestions.
+ResumeSenseAI is an iOS application that helps users understand how well their resume matches a job description and how they can improve it.
 
-The backend combines traditional ATS-style keyword analysis with semantic similarity and local LLM-powered rewriting.
+The app allows users to upload a resume PDF, paste a job description, and instantly see how strong their resume is for that role. It also generates AI-powered suggestions to improve the resume using a local LLM running through the backend.
 
-Features
+This project was built as part of an AI engineering portfolio to explore how mobile apps can integrate with AI-powered backend services.
 
-Resume PDF parsing
+What the App Does
 
-OCR support for scanned resumes
+The app has two main features.
 
-ATS-style keyword matching
+Resume Analysis
 
-Semantic similarity scoring
+Users can upload their resume and paste a job description. The backend analyzes the resume and returns:
 
-Missing keyword detection
+Keyword matching score (ATS-style)
 
-AI-powered resume rewrite suggestions
+Semantic similarity score
 
-Local LLM inference using Ollama
+Final overall score
 
-Fast API responses optimized for mobile clients
+Matched keywords
 
-Architecture
+Missing keywords
 
-The backend follows a modular architecture with separated concerns.
+This helps users quickly see where their resume aligns with the job and where it needs improvement.
 
-resume-matcher-backend
-├── app
-│   ├── main.py
-│   ├── routes
-│   │   ├── analyze.py
-│   │   └── rewrite.py
-│   ├── services
-│   │   ├── analyze_service.py
-│   │   ├── rewrite_service.py
-│   │   └── ollama_client.py
-│   └── config
-│       └── settings.py
-├── requirements.txt
-└── README.md
-Core Components
-Analyze Service
+Resume Rewrite Suggestions
 
-Performs resume-job matching using two techniques.
+After running the analysis, users can generate AI-powered suggestions for improving their resume.
 
-Keyword Matching
+The AI suggests:
 
-Extracts keywords from the job description
+a tailored professional summary
 
-Compares against resume text
+recommended skills to highlight
 
-Calculates ATS-style keyword score
+improved resume bullet points
 
-Semantic Similarity
+notes about potential gaps
 
-Uses embeddings to understand meaning
+These suggestions help the user adjust their resume to better match the job description.
 
-Detects concept similarity even when wording differs
+Technologies Used
 
-Improves match accuracy beyond simple keyword checks
+The iOS app is built with:
 
-The final score is calculated using a weighted combination.
+Swift
 
-Final Score = 0.4 × Keyword Score + 0.6 × Semantic Score
-Rewrite Service
+SwiftUI
 
-Generates resume improvement suggestions using a local LLM.
+MVVM architecture
 
-Input:
+URLSession for networking
 
-extracted resume text
+FastAPI backend
 
-job description
+Local LLM inference via Ollama
 
-missing keywords
+The UI is fully built in SwiftUI and communicates with the backend through REST APIs.
 
-Output:
+App Structure
 
-tailored professional summary
+The project is organized into a few simple layers.
 
-optimized skills section
+ResumeSenseAI
+│
+├── App
+│   └── ResumeSenseAIApp.swift
+│
+├── Models
+│   ├── AnalyzeResponse.swift
+│   └── RewriteResponse.swift
+│
+├── Network
+│   └── APIClient.swift
+│
+├── ViewModels
+│   └── ResumeMatcherVM.swift
+│
+├── Views
+│   └── ContentView.swift
+│
+└── UI Components
+    ├── Components.swift
+    └── PDFPicker.swift
+Models
 
-rewritten resume bullet points
+Handle decoding responses from the backend APIs.
 
-gap notes
+APIClient
 
-Ollama Client
+Responsible for sending requests to the backend (/analyze and /rewrite).
 
-Handles communication with the local LLM engine.
+ViewModel
 
-Supported models:
+Manages the application state and coordinates communication between the UI and the API.
 
-qwen2.5:3b
+Views
 
-phi3:mini
+SwiftUI screens that render the UI and display analysis results.
 
-This allows the project to run fully locally without external AI APIs.
+Requirements
 
-API Endpoints
-Analyze Resume
+Xcode 15+
 
-POST /api/analyze
+iOS 16 or later
 
-Accepts:
+ResumeSenseAI backend running locally or remotely
 
-resume PDF
+Running the App
 
-job description text
+Start the backend server first.
 
-Returns:
+Example:
 
-{
-  "keyword_score": 78,
-  "semantic_score": 84,
-  "final_score": 82,
-  "matched_keywords": [],
-  "missing_keywords": [],
-  "extracted_resume_text": "..."
-}
-Rewrite Resume
-
-POST /api/rewrite
-
-Accepts:
-
-{
-  "resume_text": "...",
-  "job_description": "...",
-  "missing_keywords": []
-}
-
-Returns:
-
-{
-  "rewrite": {
-    "tailored_summary": "...",
-    "skills_section": [],
-    "rewritten_bullets": [],
-    "gap_notes": []
-  }
-}
-Installation
-1. Clone repository
-git clone <your-backend-repo-url>
-cd resume-matcher-backend
-2. Create virtual environment
-python -m venv .venv
-source .venv/bin/activate
-3. Install dependencies
-pip install -r requirements.txt
-4. Install Ollama
-
-Download from:
-
-https://ollama.com
-
-Pull a model:
-
-ollama pull qwen2.5:3b
-
-or
-
-ollama pull phi3:mini
-5. Run backend server
 uvicorn app.main:app --reload
 
-Server will start at:
+Open the iOS project in Xcode.
 
-http://127.0.0.1:8000
-Development Notes
+Make sure the backend URL is correct in APIClient.swift.
 
-Resume text extraction happens only once during analysis.
+Example:
 
-Rewrite requests reuse cached resume text to reduce latency.
+let baseURL = "http://127.0.0.1:8000"
 
-Local LLM inference avoids external API costs.
+If testing on a real iPhone, replace this with your computer's local IP.
 
-Typical latency:
+Run the app on the simulator or device.
 
-Feature	Time
-Analyze	1–2s
-Rewrite	2–5s
-Future Improvements
+Typical Workflow
 
-Vector database integration
+Upload a resume PDF
 
-Resume embedding storage
+Paste a job description
 
-Multi-job comparison
+Tap Analyze Resume
 
-Resume version tracking
+Review scores and keyword results
 
-Streaming LLM responses
+Tap Generate Rewrite
 
-Advanced ATS keyword weighting
+Review AI-generated improvements
 
-Tech Stack
+Why This Project Exists
 
-FastAPI
+The goal of ResumeSenseAI was to explore how mobile applications can integrate with AI systems.
 
-Python
+Instead of calling cloud APIs, the app works with a backend that runs local LLM inference using Ollama, which makes it possible to experiment with AI features without relying on external services.
 
-pdfplumber
+It also demonstrates:
 
-sentence-transformers
+building AI-assisted tools
 
-Ollama
+integrating mobile apps with AI backends
 
-local LLM inference
+designing structured LLM outputs
+
+building end-to-end AI products
