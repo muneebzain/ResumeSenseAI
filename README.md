@@ -61,16 +61,6 @@ through REST APIs.
 
 ------------------------------------------------------------------------
 
-## App Structure
-
-ResumeSenseAI ├── App │ └── ResumeSenseAIApp.swift ├── Models │ ├──
-AnalyzeResponse.swift │ └── RewriteResponse.swift ├── Network │ └──
-APIClient.swift ├── ViewModels │ └── ResumeMatcherVM.swift ├── Views │
-└── ContentView.swift └── UI Components ├── Components.swift └──
-PDFPicker.swift
-
-------------------------------------------------------------------------
-
 ## Requirements
 
 -   Xcode 15+
